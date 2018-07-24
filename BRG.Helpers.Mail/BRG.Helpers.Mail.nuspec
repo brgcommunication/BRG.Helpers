@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>BRG.Helpers.Mail</id>
+    <version>1.0.0</version>
+    <authors>BRG Team</authors>
+    <owners>BRG Communication</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Classi e metodi helpers per invio email</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>BRG</tags>
+  </metadata>
+</package>
