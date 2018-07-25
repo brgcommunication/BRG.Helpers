@@ -11,7 +11,7 @@ namespace BRG.Helpers.Mail
     /// <summary>
     /// Configura e invia una email tramite il servizio SendGrid.
     /// </summary>
-    public class Mailer
+    public class SendGridMailer
     {
         #region RECIPIENT ADDRESS
 
@@ -287,7 +287,7 @@ namespace BRG.Helpers.Mail
 
         public string FormatException(Exception e)
         {
-            return Text.FormatException(e);
+            return TextHelper.FormatException(e);
         }
 
         #endregion

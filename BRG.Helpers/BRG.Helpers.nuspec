@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>BRG.Helpers</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>BRG Team</authors>
     <owners>BRG Communication</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

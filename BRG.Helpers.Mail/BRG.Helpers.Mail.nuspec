@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>BRG.Helpers.Mail</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <authors>BRG Team</authors>
     <owners>BRG Communication</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,7 +11,7 @@
     <copyright>Copyright 2018</copyright>
     <tags>BRG</tags>
     <dependencies>
-        <dependency id="BRG.Helpers" version="1.0.0" />
+        <dependency id="BRG.Helpers" version="1.0.1" />
         <dependency id="Sendgrid" version="9.9.0" />
     </dependencies>
   </metadata>

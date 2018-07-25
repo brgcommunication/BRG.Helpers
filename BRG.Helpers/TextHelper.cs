@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace BRG.Helpers
 {
-    public static class Text
+    public static class TextHelper
     {
         #region STRING EXTENSION METHODS
 
@@ -50,6 +50,13 @@ namespace BRG.Helpers
         {
             var sb = new StringBuilder();
             var customData = String.Empty;
+
+            //// Exception particolari che non richiedono il reference di nuove DLL/PACCHETTI NUGET (il pacchetto BRG.Helpers deve restare leggero non posso ad esempio gestire qui le eccezioni di EntityFramework)
+            //var ae = e as AggregateException;
+            //if (ae!= null)
+            //{
+            //    //TODO: CICLA SU ae.InnerExceptions
+            //}
 
             if (e != null)
             {
