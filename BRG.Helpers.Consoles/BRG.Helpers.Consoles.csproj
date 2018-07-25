@@ -48,5 +48,8 @@
     <Compile Include="StandardConsole.cs" />
     <Compile Include="StandardConsoleConfig.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="BRG.Helpers.Consoles.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
