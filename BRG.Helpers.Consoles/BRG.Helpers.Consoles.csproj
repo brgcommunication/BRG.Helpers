@@ -44,8 +44,10 @@
     <Compile Include="ConsoleFormatEventArgs.cs" />
     <Compile Include="ConsoleMessageEventArgs.cs" />
     <Compile Include="EventedConsole.cs" />
+    <Compile Include="UsageScenarioEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StandardConsole.cs" />
+    <Compile Include="IConsoleConfig.cs" />
     <Compile Include="StandardConsoleConfig.cs" />
   </ItemGroup>
   <ItemGroup>

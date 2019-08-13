@@ -2,7 +2,7 @@
 
 namespace BRG.Helpers.Consoles
 {
-    public class StandardConsoleConfig
+    public class StandardConsoleConfig : IConsoleConfig
     {
         public string JobSupportGuid { get; set; } = Guid.NewGuid().ToString().ToUpper();
         public string JobTitle { get; set; }

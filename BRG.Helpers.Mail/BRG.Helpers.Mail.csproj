@@ -47,14 +47,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SendGridMailer.cs" />
+    <Compile Include="BRG.Helpers.Consoles\EmailConsole.cs" />
+    <Compile Include="BRG.Helpers.Consoles\EmailConsoleConfig.cs" />
+    <Compile Include="EmailMessage.cs" />
+    <Compile Include="EmailAttachment.cs" />
+    <Compile Include="EmailAddress.cs" />
+    <Compile Include="ISmtpClient.cs" />
+    <Compile Include="Mailer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendGridSmtpClient.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BRG.Helpers.Mail.nuspec" />
+    <None Include="BRG.Helpers.Mail.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BRG.Helpers.Consoles\BRG.Helpers.Consoles.csproj">
+      <Project>{2fd49e92-790d-4318-bafd-db38aa511c10}</Project>
+      <Name>BRG.Helpers.Consoles</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BRG.Helpers\BRG.Helpers.csproj">
       <Project>{81e7b5a7-3868-41de-98d4-f5c66022eadd}</Project>
       <Name>BRG.Helpers</Name>

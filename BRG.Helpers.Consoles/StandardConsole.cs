@@ -7,33 +7,30 @@ namespace BRG.Helpers.Consoles
     /// Una EventedConsole personalizzata per realizzare una formattazione consistente dei log generati dai processi schedulati di BRG.
     /// Il log prodotto rispetta il formato di markup di MarkDown (https://en.wikipedia.org/wiki/Markdown).
     /// </summary>
-    public class StandardConsole : EventedConsole
+    public partial class StandardConsole : EventedConsole
     {
+        private StandardConsoleConfig config = new StandardConsoleConfig();
         private DateTime consoleCreated = DateTime.Now;
-        private StandardConsoleConfig config = null;
         private bool lastCharWasNewLine = true;
         private bool isPreBlockOpen = false;
 
         private string indentPrefix = String.Empty;
         private int indentLevel = 0;
 
-        private bool postponedInit = true;        // Trick: salta l'esecuzione dell'evento base.OnInit() sul costruttore e poi lo rilancio manualmente. Devo prima impostare BRGConsoleConfig e i suoi handler!
-
         #region COSTRUTTORI
 
         /// <summary>
         /// Una EventedConsole personalizzata per realizzare una formattazione consistente dei log generati dai processi schedulati di BRG.
         /// </summary>
-        public StandardConsole() : base()
+        public StandardConsole(UsageScenarioEnum usageScenario) : base(usageScenario, new StandardConsoleConfig())        // Inizializza base.Config
         {
-            config = new StandardConsoleConfig();
-            OnInit(EventArgs.Empty);
+            this.config = base.Config as StandardConsoleConfig;          
         }
 
         /// <summary>
         /// Permette di gestire simultaneamente il log su Console e su sistema custom.
         /// </summary>
-        public StandardConsole(StandardConsoleConfig config, bool disableSystemConsole = false, bool disableBuffer = false, StringBuilder customBuffer = null) : base(disableSystemConsole, disableBuffer, customBuffer)
+        public StandardConsole(UsageScenarioEnum usageScenario, StandardConsoleConfig config, bool disableSystemConsole = false, bool disableBuffer = false, StringBuilder customBuffer = null) : base(usageScenario, config, disableSystemConsole, disableBuffer, customBuffer)
         {
             this.config = config;
         }
@@ -41,21 +38,6 @@ namespace BRG.Helpers.Consoles
         #endregion
 
         #region SETUP DEGLI HANDLER
-
-        protected override void OnInit(EventArgs args)
-        {
-            if (!postponedInit)
-            {
-                if (config.OnConsoleInit != null)
-                {
-                    Init += config.OnConsoleInit;
-                }
-
-                base.OnInit(args);
-            }
-
-            postponedInit = false;
-        }
 
         protected override void OnDisposing(EventArgs args)
         {
@@ -288,7 +270,7 @@ namespace BRG.Helpers.Consoles
                   config.JobTags ?? ""
                   ).ToUpper());
 
-            sb.AppendLine(String.Format("[EXECUTION STARTED AT {0} UTC+00:00]\r\n[EXECUTION STARTED AT {1} (SERVER-TIME)]",
+            sb.AppendLine(String.Format("[EXECUTION STARTED AT {0} UTC+00:00 (SERVER-TIME: {1})]",
                     config.JobLocalBeginTime.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"),
                     config.JobLocalBeginTime.Value.ToString("yyyy-MM-dd HH:mm:ss UTCK")
                   ).ToUpper());
@@ -337,7 +319,7 @@ namespace BRG.Helpers.Consoles
             var jlet = jobLocalEndTime ?? DateTime.Now;
 
             sb.AppendLine(String.Empty.PadRight(80, '-'));
-            sb.AppendLine(String.Format("[EXECUTION FINISHED AT {0} UTC+00:00]\r\n[EXECUTION FINISHED AT {1} (SERVER-TIME)]\r\n[EXECUTION TIME {2}]",
+            sb.AppendLine(String.Format("[EXECUTION FINISHED AT {0} UTC+00:00 (SERVER-TIME: {1})]\r\n[EXECUTION TIME {2}]",
                 jlet.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"),
                 jlet.ToString("yyyy-MM-dd HH:mm:ss UTCK"),
                 (jlet - jlst).ToString("h'h:'m'm:'s's'")

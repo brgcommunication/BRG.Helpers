@@ -6,28 +6,45 @@ namespace BRG.Helpers.Consoles
     /// <summary>
     /// Scrive su System.Console e contestualmente in un buffer di supporto che può essere usato per generare log, notifiche email, ecc.
     /// </summary>
-    public class BufferedConsole
+    public partial class BufferedConsole
     {
         private StringBuilder buffer;
+
+        /// <summary>
+        /// In quale scenario è stato istanziata la Console. Determina il comportamento nella gestione di task asincroni generati dalla classe.
+        /// </summary>
+        protected UsageScenarioEnum UsageScenario { get; private set; }
+
+        /// <summary>
+        /// La scrittura su buffer interno è disabilitata. I metodi di scrittura della classe funzioneranno solo sulla System.Console.
+        /// </summary>
         protected bool IsBufferDisabled { get; private set; }
+
+        /// <summary>
+        /// La scrittura su System.Console è disabilitata. I metodi di scrittura della classe funzioneranno solo sul buffer interno.
+        /// </summary>
         protected bool IsSystemConsoleDisabled { get; private set; }
 
         /// <summary>
         /// Scrive su System.Console e contestualmente in un buffer di supporto che può essere usato per generare log, notifiche email, ecc.
         /// </summary>
-        public BufferedConsole()
+        /// <param name="usageScenario">In quale scenario è istanziata la Console. Determina il comportamento nella gestione di task asincroni generati dalla classe.</param>
+        public BufferedConsole(UsageScenarioEnum usageScenario)
         {
+            UsageScenario = usageScenario;
             buffer = new StringBuilder();
         }
 
         /// <summary>
         /// Scrive su System.Console e contestualmente in un buffer di supporto che può essere usato per generare log, notifiche email, ecc.
         /// </summary>
+        /// <param name="usageScenario">In quale scenario è istanziata la Console. Determina il comportamento nella gestione di task asincroni generati dalla classe.</param>
         /// <param name="disableSystemConsole">Se true, la scrittura su System.Console è disabilitata</param>
         /// <param name="disableBuffer">Se true, la scrittura sul buffer interno è disabiltita</param>
-        /// <param name="customBuffer">Se diverso da null, usa questo buffer al posto di quello predefinito</param>
-        public BufferedConsole(bool disableSystemConsole = false, bool disableBuffer = false, StringBuilder customBuffer = null)
+        /// <param name="customBuffer">Se diverso da null, usa questo buffer al posto di quello predefinito.</param>
+        public BufferedConsole(UsageScenarioEnum usageScenario, bool disableSystemConsole = false, bool disableBuffer = false, StringBuilder customBuffer = null)
         {
+            UsageScenario = usageScenario;
             IsSystemConsoleDisabled = disableSystemConsole;
             IsBufferDisabled = disableBuffer;
             buffer = customBuffer ?? new StringBuilder();
@@ -71,7 +88,7 @@ namespace BRG.Helpers.Consoles
             var value = ApplyFormat(true, format, arg);
 
             // Scrivi su System.Console
-            if (!IsBufferDisabled)
+            if (!IsSystemConsoleDisabled)
             {
                 Console.Write(value + Environment.NewLine);
             }

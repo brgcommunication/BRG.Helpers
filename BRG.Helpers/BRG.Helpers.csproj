@@ -41,10 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeHelper.cs" />
     <Compile Include="TextHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BRG.Helpers.nuspec" />
+    <None Include="BRG.Helpers.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

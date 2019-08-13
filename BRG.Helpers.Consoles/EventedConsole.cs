@@ -9,8 +9,15 @@ namespace BRG.Helpers.Consoles
 
     public delegate void EventedConsoleMessageHandler(object sender, ConsoleMessageEventArgs args);
 
-    public class EventedConsole : BufferedConsole, IDisposable
+    public partial class EventedConsole : BufferedConsole, IDisposable
     {
+        private IConsoleConfig config;
+
+        protected IConsoleConfig Config
+        {
+            get { return config; }
+        }
+
         #region DEFINIZIONE DEGLI EVENTI E METODI DI RISING
 
         public event EventedConsoleHandler Init;
@@ -92,14 +99,19 @@ namespace BRG.Helpers.Consoles
 
         #endregion
 
-        public EventedConsole() : base()
+        public EventedConsole(UsageScenarioEnum usageScenario) : base(usageScenario)
         {
-            OnInit(EventArgs.Empty);
+            OnInit(EventArgs.Empty);                 // Lancia evento Init
         }
 
-        public EventedConsole(bool disableSystemConsole = false, bool disableBuffer = false, StringBuilder customBuffer = null) : base(disableSystemConsole, disableBuffer, customBuffer)
+        public EventedConsole(UsageScenarioEnum usageScenario, IConsoleConfig config, bool disableSystemConsole = false, bool disableBuffer = false, StringBuilder customBuffer = null) : base(usageScenario, disableSystemConsole, disableBuffer, customBuffer)
         {
-            OnInit(EventArgs.Empty);
+            this.config = config;
+            if (config != null && config.OnConsoleInit != null)
+            {
+                Init += config.OnConsoleInit;       // Se è specificato un gestore per l'evento Init, assegnalo
+            }
+            OnInit(EventArgs.Empty);                // Lancia evento Init
         }
 
         /// <summary>

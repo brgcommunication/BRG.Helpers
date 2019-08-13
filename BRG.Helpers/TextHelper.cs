@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace BRG.Helpers
 {
-    public static class TextHelper
+    public static partial class TextHelper
     {
         #region STRING EXTENSION METHODS
 
