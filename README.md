@@ -1,2 +1,2 @@
 # BRG.Helpers
-Raccolta di classi e metodi helpers.
+Pacchetti NuGet utili a progetti BRG ed ecosistema Dresscode
